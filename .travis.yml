@@ -1,19 +1,15 @@
 sudo: required
 services:
     - docker
-
 before_install:
     - docker build -t jhawthor/react-test -f ./client/Dockerfile.dev ./client
-
 script:
     - docker run -e CI=true docker-react npm run test -- --coverage
-
 after_success:
     - docker build -t jhawthor/multi-client ./client
     - docker build -t jhawthor/multi-nginx ./nginx
     - docker build -t jhawthor/multi-server ./server
     - docker build -t jhawthor/multi-worker ./worker
-
 # Log into to docker repo
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # push images to dockerhub (or a local docker repo)
