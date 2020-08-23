@@ -5,7 +5,7 @@ services:
 
     # to run tests we need to use the dev dockerfile
 before_install:
-    - docker build -t jaonhawthorne/react-test -f ./client/Dockerfile.dev ./client
+    - docker build -t jasonhawthorne/react-test -f ./client/Dockerfile.dev ./client
 
 script:
     - docker run -e CI=true jasonhawthorne/react-test npm test
@@ -14,7 +14,7 @@ script:
 after_success:
     - docker build -t jasonhawthorne/multi-client ./client
     - docker build -t jasonhawthorne/multi-nginx ./nginx
-    - docker build -t jsonhawthorne/multi-server ./server
+    - docker build -t jasonhawthorne/multi-server ./server
     - docker build -t jasonhawthorne/multi-worker ./worker
 
 # Log into to docker repo
