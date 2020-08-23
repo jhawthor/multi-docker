@@ -1,16 +1,13 @@
-language: generic
 sudo: required
 services:
     - docker
 
-# to run tests we need to use the dev dockerfile
 before_install:
     - docker build -t jhawthor/react-test -f ./client/Dockerfile.dev ./client
 
 script:
     - docker run -e CI=true docker-react npm run test -- --coverage
 
-# build production apps
 after_success:
     - docker build -t jhawthor/multi-client ./client
     - docker build -t jhawthor/multi-nginx ./nginx
@@ -19,7 +16,6 @@ after_success:
 
 # Log into to docker repo
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-
 # push images to dockerhub (or a local docker repo)
 - docker push jhawthor/multi-client
 - docker push jhawthor/multi-nginx
