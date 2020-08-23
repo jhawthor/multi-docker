@@ -1,0 +1,27 @@
+sudo: required
+services:
+    # using docker
+    - docker
+
+    # to run tests we need to use the dev dockerfile
+before_install:
+    - docker build -t jaonhawthorne/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+    - docker run jasonhawthorne/react-test npm test -- --coverage
+
+# build production apps
+after_success:
+    - docker build -t jasonhawthorne/multi-client ./client
+    - docker build -t jasonhawthorne/multi-nginx ./nginx
+    - docker build -t jsonhawthorne/multi-server ./server
+    - docker build -t jasonhawthorne/multi-worker ./worker
+
+# Log into to docker repo
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+
+# push images to dockerhub (or a local docker repo)
+- docker push jasonhawthorne/multi-client
+- docker push jasonhawthorne/multi-nginx
+- docker push jasonhawthorne/multi-server
+- docker push jasonhawthorne/multi-worker
