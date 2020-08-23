@@ -1,10 +1,9 @@
 language: generic
 sudo: required
 services:
-    # using docker
     - docker
 
-    # to run tests we need to use the dev dockerfile
+# to run tests we need to use the dev dockerfile
 before_install:
     - docker build -t jhawthor/react-test -f ./client/Dockerfile.dev ./client
 
