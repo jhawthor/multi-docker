@@ -20,7 +20,7 @@ after_success:
     # Log into to docker repo
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-    # push images to dockerhub (or a local docker repo)
+    # push images to dockerhub
     - docker push jhawthor/multi-client
     - docker push jhawthor/multi-nginx
     - docker push jhawthor/multi-server
