@@ -5,7 +5,7 @@ services :
 before_install :
     - docker build -t jhawthor/react-test -f ./client/Dockerfile.dev ./client
 script:
-    - docker run -e CI=true react-test npm run test -- --coverage
+    - docker run -e CI=true jhawthor/react-test npm run test -- --coverage
 
 after_success:
     - docker build -t jhawthor/multi-client ./client
