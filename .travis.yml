@@ -18,7 +18,8 @@ after_success:
     - docker build -t jhawthor/multi-worker ./worker
 
     # Log into to docker repo
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin hub.docker.com
+    #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin hub.docker.com
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin docker.io
 
     # push images to dockerhub
     - docker push jhawthor/multi-client
